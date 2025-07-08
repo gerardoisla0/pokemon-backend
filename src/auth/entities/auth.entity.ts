@@ -9,6 +9,9 @@ export class User{
     @Column('text', {unique: true})
     email: string;
 
-    @Column('text')
-    password: string;
+    @Column('text', {default: ''})
+    fullName: string;
+
+    @Column('text', {unique: true})
+    firebaseUUID: string;
 }

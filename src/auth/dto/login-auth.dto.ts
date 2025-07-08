@@ -5,7 +5,5 @@ export class LoginAuthDto {
     @IsEmail()
     email: string;
     @IsString()
-    @MinLength(6)
-    @MaxLength(12)
-    password: string;
+    token: string;
 }
