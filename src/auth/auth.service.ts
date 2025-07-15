@@ -34,7 +34,7 @@ export class AuthService {
 
   }
 
-  async login(loginAuthDto: LoginAuthDto) {
+  async checkStatus(loginAuthDto: LoginAuthDto) {
    
     const token = await this.firebaseService.verify(loginAuthDto);
     if(!token)

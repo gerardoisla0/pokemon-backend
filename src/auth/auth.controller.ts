@@ -12,8 +12,8 @@ export class AuthController {
     return this.authService.create(createAuthDto);
   }
 
-  @Post('login')
-  login(@Body() loginAuthDto: LoginAuthDto) {
-    return this.authService.login(loginAuthDto);
+  @Post('checkStatus')
+  checkStatus(@Body() loginAuthDto: LoginAuthDto) {
+    return this.authService.checkStatus(loginAuthDto);
   }
 }
