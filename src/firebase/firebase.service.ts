@@ -28,4 +28,16 @@ export class FirebaseService {
             console.error('Error verifying user in Firebase:', e);
         }
     }
+
+    async sendNotification(token: any, payload: any) {
+        try {
+            await admin.messaging().send({
+                token: token,
+                notification: payload
+            });
+        }catch(e){
+            console.error('Error sending notification:', e);
+        }
+    }
+
 }

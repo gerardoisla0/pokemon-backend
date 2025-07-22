@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FirebaseModule } from './firebase/firebase.module';
+import { NotificationModule } from './notification/notification.module';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
@@ -16,7 +18,9 @@ import { FirebaseModule } from './firebase/firebase.module';
       synchronize: true,
     }),
     AuthModule,
-    FirebaseModule],
+    FirebaseModule,
+    CommonModule,
+    NotificationModule],
   controllers: [],
   providers: [],
 })
