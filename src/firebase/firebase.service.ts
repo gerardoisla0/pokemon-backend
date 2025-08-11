@@ -1,11 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { CreateAuthDto } from 'src/auth/dto/create-auth.dto';
 import * as admin from 'firebase-admin';
 import { LoginAuthDto } from 'src/auth/dto/login-auth.dto';
+import { CreateNotificationDto } from 'src/notification/dto/create-notification.dto';
 
 @Injectable()
 export class FirebaseService {
 
+    private readonly logger = new Logger(FirebaseService.name);
+    
     async create(createAuthDto: CreateAuthDto) {
         try{
             const userRecord = await admin.auth().createUser({
@@ -37,6 +40,40 @@ export class FirebaseService {
             });
         }catch(e){
             console.error('Error sending notification:', e);
+        }
+    }
+
+    
+    async sendMessage(createNotificationDto: CreateNotificationDto) {
+        try{
+            const newMessage = {
+                fullName: createNotificationDto.fullName,
+                message: createNotificationDto.message,
+                timestamp: createNotificationDto.timestamp
+            }
+            const docRef = await admin.firestore().collection('messages').add(newMessage);
+
+            return docRef;
+
+        }catch(e){
+            this.logger.error('Error sending notification:', e);
+        }
+    }
+
+    async sendMessageRT(createNotificationDto: CreateNotificationDto) {
+        try{
+            const newMessage = {
+                fullName: createNotificationDto.fullName,
+                message: createNotificationDto.message,
+                timestamp: createNotificationDto.timestamp
+            }
+
+            const messageRef = admin.database().ref('messages').push();
+            await messageRef.set(newMessage);
+            this.logger.log('Real-time message sent:', newMessage);
+
+        }catch(e){
+            this.logger.error('Error sending notification:', e);
         }
     }
 

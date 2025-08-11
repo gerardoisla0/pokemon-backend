@@ -21,4 +21,22 @@ export class NotificationService {
       console.error('Error sending notification:', e);
      }
   }
+
+  async sendMessage(createNotificationDto: CreateNotificationDto) {
+
+     try{
+        await this.FirebaseService.sendMessage(createNotificationDto);
+     }catch (e){
+      console.error('Error sending notification:', e);
+     }
+  }
+
+    async sendMessageRT(createNotificationDto: CreateNotificationDto) {
+
+     try{
+        await this.FirebaseService.sendMessageRT(createNotificationDto);
+     }catch (e){
+      console.error('Error sending notification:', e);
+     }
+  }
 }
